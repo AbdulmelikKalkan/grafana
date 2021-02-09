@@ -4,7 +4,6 @@ import { css, cx } from 'emotion';
 
 import { Alert } from '../Alert/Alert';
 import { LogRowContextRows, LogRowContextQueryErrors, HasMoreContextRows } from './LogRowContextProvider';
-import { selectThemeVariant } from '../../themes/selectThemeVariant';
 import { ThemeContext } from '../../themes/ThemeContext';
 import { CustomScrollbar } from '../CustomScrollbar/CustomScrollbar';
 import { List } from '../List/List';
@@ -20,48 +19,17 @@ interface LogRowContextProps {
 }
 
 const getLogRowContextStyles = (theme: GrafanaTheme) => {
-  const gradientTop = selectThemeVariant(
-    {
-      light: theme.palette.white,
-      dark: theme.palette.dark1,
-    },
-    theme.type
-  );
-  const gradientBottom = selectThemeVariant(
-    {
-      light: theme.palette.gray7,
-      dark: theme.palette.dark2,
-    },
-    theme.type
-  );
-
-  const boxShadowColor = selectThemeVariant(
-    {
-      light: theme.palette.gray5,
-      dark: theme.palette.black,
-    },
-    theme.type
-  );
-  const borderColor = selectThemeVariant(
-    {
-      light: theme.palette.gray5,
-      dark: theme.palette.dark9,
-    },
-    theme.type
-  );
-
   return {
     commonStyles: css`
       position: absolute;
       width: calc(100% + 20px);
-      left: -10px;
+      left: -13px;
       height: 250px;
-      z-index: 2;
+      z-index: ${theme.zIndex.dropdown};
       overflow: hidden;
-      background: ${theme.colors.bodyBg};
-      background: linear-gradient(180deg, ${gradientTop} 0%, ${gradientBottom} 104.25%);
-      box-shadow: 0px 2px 4px ${boxShadowColor}, 0px 0px 2px ${boxShadowColor};
-      border: 1px solid ${borderColor};
+      background: ${theme.colors.bg1};
+      box-shadow: 0 0 10px ${theme.colors.dropdownShadow};
+      border: 1px solid ${theme.colors.bg2};
       border-radius: ${theme.border.radius.md};
     `,
     header: css`
@@ -69,7 +37,7 @@ const getLogRowContextStyles = (theme: GrafanaTheme) => {
       padding: 0 10px;
       display: flex;
       align-items: center;
-      background: ${borderColor};
+      background: ${theme.colors.bg2};
     `,
     logs: css`
       height: 220px;
